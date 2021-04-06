@@ -83,6 +83,11 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/node@^14.14.37":
+  version "14.14.37"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.37.tgz#a3dd8da4eb84a996c36e331df98d82abd76b516e"
+  integrity sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==
+
 "@typescript-eslint/eslint-plugin@^4.21.0":
   version "4.21.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.21.0.tgz#3fce2bfa76d95c00ac4f33dff369cb593aab8878"
@@ -1979,6 +1984,11 @@ vue-eslint-parser@^7.6.0:
     espree "^6.2.1"
     esquery "^1.4.0"
     lodash "^4.17.15"
+
+vue-router@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
+  integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
 
 vue-tsc@^0.0.15:
   version "0.0.15"
