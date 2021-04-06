@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import Index from "@/router/index";
+
 const router = createRouter({
   history: createWebHistory(),
-  routes: [],
+  routes: [...Index],
 });
 
 export default router;
