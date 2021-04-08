@@ -2,13 +2,18 @@
   "name": "minesweeper",
   "version": "1.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^2.1.2",
+    "autoprefixer": "^10.2.5",
+    "element-plus": "^1.0.2-beta.37",
+    "lodash": "^4.17.21",
+    "postcss": "^8.2.9",
+    "tailwindcss": "^2.1.1",
     "vue": "^3.0.5",
     "vue-router": "^4.0.6"
   },
