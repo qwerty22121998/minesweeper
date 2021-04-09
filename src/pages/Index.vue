@@ -1,9 +1,5 @@
 <template>
-  <div class="w-full">
-    {{ cnt }}
-    <a-button @click="up">Up</a-button>
-    <a-input v-model="cnt.s" />
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">

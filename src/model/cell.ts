@@ -1,29 +1,35 @@
-enum CellType {
+enum Type {
   None = "-",
   Bomb = "x",
 }
 
 class Cell {
-  type: CellType = CellType.None;
+  type: Type = Type.None;
   reveal: boolean = false;
+  flag: boolean = false;
+  neabyBomb: number = 0;
   number: number = 0;
+  disabled: boolean = false;
 
   constructor() {}
 
   display(): string {
-    if (this.reveal && this.type == CellType.Bomb) return "X";
-    if (this.reveal) return this.number.toString();
+    if (this.flag) return "🚩";
+    if (this.reveal && this.type == Type.Bomb) return "💣";
+    if (this.reveal) return this.neabyBomb.toString();
     return "\xa0";
   }
 
   get btnType() {
-    if (this.reveal && this.type == CellType.Bomb) return "danger";
-    if (this.reveal) return "";
-    return "info";
+    if (this.disabled) return "danger";
+    if (this.flag) return "warning";
+    if (this.reveal && this.type == Type.Bomb) return "danger";
+    if (this.reveal) return "default";
+    return "primary";
   }
   get class() {
-    if (this.reveal && this.type == CellType.Bomb) return "text-red-900";
-    switch (this.number) {
+    if (this.reveal && this.type == Type.Bomb) return "text-red-900";
+    switch (this.neabyBomb) {
       case 1:
         return "text-indigo-900";
       case 2:
@@ -38,8 +44,15 @@ class Cell {
         return "text-black-900";
     }
   }
+
+  notice() {
+    this.disabled = true;
+    setTimeout(() => {
+      this.disabled = false;
+    }, 100);
+  }
 }
 
 export default Cell;
 
-export { Cell, CellType };
+export { Cell, Type as CellType };
