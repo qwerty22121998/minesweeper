@@ -1,7 +1,7 @@
 <template>
   <section name="game" :key="game.seed">
     <el-row>
-      <!-- <el-col class="text-center" :span="8">
+      <el-col class="text-center" :span="8" v-if="debug">
         <div v-for="(line, x) in game.cells" :key="`${x}`">
           <span v-for="(cell, y) in line" :key="`${x}-${y}`" class="cell">
             <el-button
@@ -17,7 +17,7 @@
             </el-button>
           </span>
         </div>
-      </el-col> -->
+      </el-col>
       <el-col class="text-center" :span="8">
         <div v-for="(line, x) in game.cells" :key="`${x}`">
           <span v-for="(cell, y) in line" :key="`${x}-${y}`" class="cell">
@@ -69,12 +69,11 @@
 <script lang="ts">
 import { defineComponent, ref, reactive } from "@vue/runtime-core";
 
-import { IGame, Game } from "@/model/game";
-import Cell from "@/model/cell";
+import { Game } from "@/model/game";
 
 export default defineComponent({
   setup() {
-    const debug = ref(true);
+    const debug = ref(false);
     const game = reactive(new Game(9, 9, 10));
     game.start();
     const x = ref<number>(0);
@@ -95,10 +94,5 @@ export default defineComponent({
   font-family: "Courier New", Courier, monospace;
   width: 50px;
   height: 50px;
-}
-.cell {
-  /* width: 14px; */
-  /* height: 14px; */
-  line-height: 1;
 }
 </style>
