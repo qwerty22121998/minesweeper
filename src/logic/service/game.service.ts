@@ -22,7 +22,13 @@ class GameSetting {
   numberOfMine: number = 0;
 }
 
-class GameService {
+interface IGameService {
+  setting: GameSetting;
+  squares: Map2D<SquareCord>;
+  get(c: Coord): SquareCord | undefined;
+}
+
+class GameService implements IGameService {
   setting: GameSetting;
   squares: Map2D<SquareCord>;
 
@@ -75,4 +81,4 @@ class GameService {
   }
 }
 
-export { GameService, GameSetting };
+export { IGameService, GameService, GameSetting };
