@@ -1,7 +1,4 @@
-interface Coord {
-  x: number;
-  y: number;
-}
+import { Coord } from "../model/coord";
 
 class Map2D<T> {
   data: Map<number, Map<number, T>>;
@@ -44,4 +41,4 @@ class Map2D<T> {
   }
 }
 
-export { Coord, Map2D };
+export { Map2D };
