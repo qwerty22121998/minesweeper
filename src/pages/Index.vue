@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>{{ cnt2 }}</div>
 </template>
 
 <script lang="ts">

@@ -1,64 +1,24 @@
 <template>
-  <section name="game" :key="game.seed">
+  <section name="game">
     <el-row>
-      <el-col class="text-center" :span="8" v-if="debug">
-        <div v-for="(line, x) in game.cells" :key="`${x}`">
-          <span v-for="(cell, y) in line" :key="`${x}-${y}`" class="cell">
-            <el-button
-              class="mono rounded-none text-center"
-              :type="cell.btnType"
-              @contextmenu.prevent="game.rightClick(x, y)"
-              :disabled="game.gameOver"
-              plain
-            >
-              <span :class="[cell.class, 'm-0 cell']">
-                {{ cell.number }}
-              </span>
-            </el-button>
-          </span>
-        </div>
+      <el-col> </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <GameScreen v-model="game" />
       </el-col>
-      <el-col class="text-center" :span="8">
-        <div v-for="(line, x) in game.cells" :key="`${x}`">
-          <span v-for="(cell, y) in line" :key="`${x}-${y}`" class="cell">
-            <el-button
-              @click="game.leftClick(x, y)"
-              @contextmenu.prevent="game.rightClick(x, y)"
-              class="mono rounded-none text-center"
-              :type="cell.btnType"
-              :disabled="game.gameOver"
-              plain
-            >
-              <span :class="[cell.class, 'm-0 cell']">
-                {{ cell.display() }}
-              </span>
-            </el-button>
-          </span>
-        </div>
-      </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <el-form>
           <el-form-item>
-            Bomb:
-            <el-input-number
-              label="bomb"
-              v-model="game.numberOfBomb"
-              controls-position="right"
-            />
+            Size:
+            <el-input-number size="mini" v-model="setting.width" />
+            <el-input-number size="mini" v-model="setting.height" />
           </el-form-item>
-
           <el-form-item>
-            <el-button type="success" @click="game.start()">Start</el-button>
+            <el-input-number size="mini" v-model="setting.numberOfMine" />
           </el-form-item>
-
           <el-form-item>
-            <el-button type="danger" @click="game.reveal()">Reveal</el-button>
-          </el-form-item>
-
-          <el-form-item>
-            <el-input-number v-model="x" />
-            <el-input-number v-model="y" />
-            <el-button @click="genNumb">G</el-button>
+            <el-button @click="game.start(setting)">Start</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -68,29 +28,37 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from "@vue/runtime-core";
+import { GameService, GameSetting } from "@/logic/service/game.service";
+import SquareService from "@/logic/service/square.service";
 
-import { Game } from "@/model/game";
+import GameScreen from "@/pages/Game/GameScreen.vue";
 
 export default defineComponent({
+  components: {
+    GameScreen,
+  },
+
   setup() {
-    const debug = ref(false);
-    const game = reactive(new Game(9, 9, 10));
-    game.start();
-    const x = ref<number>(0);
-    const y = ref<number>(0);
+    const game = reactive<GameService>(new GameService());
+    game.start({
+      width: 3,
+      height: 3,
+      numberOfMine: 3,
+    });
+    const setting = reactive<GameSetting>({ ...game.setting });
 
-    const genNumb = () => {
-      console.log(x.value, y.value);
-      game.placeBomb(game.cord(x.value, y.value));
+    return {
+      game,
+      console,
+      setting,
+      SquareService,
     };
-
-    return { debug, game, x, y, genNumb };
   },
 });
 </script>
 
 <style>
-.mono {
+.square {
   font-family: "Courier New", Courier, monospace;
   width: 50px;
   height: 50px;
