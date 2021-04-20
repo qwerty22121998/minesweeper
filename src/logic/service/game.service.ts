@@ -1,24 +1,29 @@
 import { Cell, Position } from "@/logic/model/cell";
 import _ from "lodash";
 
-class GameService {
+interface GameSetting {
   width: number;
   height: number;
   numberOfBomb: number;
+}
+class GameService {
+  setting: GameSetting;
   cells: Cell[][] = [];
   gameOver: boolean = false;
 
-  constructor(width: number, height: number, numberOfBomb = 0) {
-    this.width = width;
-    this.height = height;
-    this.numberOfBomb = numberOfBomb;
+  constructor() {
+    this.setting = {
+      width: 0,
+      height: 0,
+      numberOfBomb: 0,
+    };
   }
 
   createCells() {
     this.cells = [];
-    for (let x = 0; x < this.height; x++) {
+    for (let x = 0; x < this.setting.height; x++) {
       this.cells.push([]);
-      for (let y = 0; y < this.width; y++) {
+      for (let y = 0; y < this.setting.width; y++) {
         this.cells[x].push(new Cell({ x, y }));
       }
     }
@@ -30,8 +35,8 @@ class GameService {
       for (let y = -1; y <= 1; y++) {
         if (x == 0 && y == 0) continue;
         const newP = { x: p.x + x, y: p.y + y };
-        if (newP.x < 0 || newP.x >= this.height) continue;
-        if (newP.y < 0 || newP.y >= this.width) continue;
+        if (newP.x < 0 || newP.x >= this.setting.height) continue;
+        if (newP.y < 0 || newP.y >= this.setting.width) continue;
         res.push(newP);
       }
     }
@@ -50,20 +55,14 @@ class GameService {
 
   generateMine() {
     _.shuffle(_.flatten(this.cells))
-      .slice(0, this.numberOfBomb)
+      .slice(0, this.setting.numberOfBomb)
       .forEach((cell) => {
         this.placeMine(cell.pos);
       });
   }
 
-  start(
-    w: number = this.width,
-    h: number = this.height,
-    b: number = this.numberOfBomb
-  ) {
-    this.width = w;
-    this.height = h;
-    this.numberOfBomb = b;
+  start(s: GameSetting) {
+    this.setting = s;
     this.createCells();
     this.generateMine();
   }

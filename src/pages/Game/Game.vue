@@ -36,26 +36,29 @@
       <el-col :span="8">
         <el-form>
           <el-form-item>
+            Size:
+            <el-input-number v-model="setting.height" size="mini" />
+            <el-input-number v-model="setting.width" size="mini" />
+          </el-form-item>
+
+          <el-form-item>
             Bomb:
             <el-input-number
               label="bomb"
-              v-model="game.numberOfBomb"
+              v-model="setting.numberOfBomb"
               controls-position="right"
+              size="mini"
             />
           </el-form-item>
 
           <el-form-item>
-            <!-- <el-button type="success" @click="game.start()">Start</el-button> -->
+            <el-button type="success" @click="game.start(setting)"
+              >Start</el-button
+            >
           </el-form-item>
 
           <el-form-item>
             <!-- <el-button type="danger" @click="game.reveal()">Reveal</el-button> -->
-          </el-form-item>
-
-          <el-form-item>
-            <el-input-number v-model="x" />
-            <el-input-number v-model="y" />
-            <!-- <el-button @click="genNumb">G</el-button> -->
           </el-form-item>
         </el-form>
       </el-col>
@@ -71,14 +74,16 @@ import { CellService } from "@/logic/service/cell.service";
 
 export default defineComponent({
   setup() {
-    const debug = ref(false);
-    const game = reactive(new GameService(9, 9, 10));
-    game.start();
-    const x = ref<number>(0);
-    const y = ref<number>(0);
+    const setting = reactive({
+      width: 9,
+      height: 9,
+      numberOfBomb: 10,
+    });
+    const game = reactive(new GameService());
+    game.start(setting);
     const cellService: CellService = new CellService();
 
-    return { debug, game, x, y, cellService };
+    return { setting, game, cellService };
   },
 });
 </script>
