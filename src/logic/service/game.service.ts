@@ -1,4 +1,4 @@
-import { Cell, Position } from "@/logic/model/cell";
+import { Cell, Position, State } from "@/logic/model/cell";
 import _ from "lodash";
 
 interface GameSetting {
@@ -19,16 +19,7 @@ class GameService {
     };
   }
 
-  createCells() {
-    this.cells = [];
-    for (let x = 0; x < this.setting.height; x++) {
-      this.cells.push([]);
-      for (let y = 0; y < this.setting.width; y++) {
-        this.cells[x].push(new Cell({ x, y }));
-      }
-    }
-  }
-
+  // Util
   neighbor(p: Position): Position[] {
     const res: Position[] = [];
     for (let x = -1; x <= 1; x++) {
@@ -41,6 +32,17 @@ class GameService {
       }
     }
     return res;
+  }
+
+  // Init
+  createCells() {
+    this.cells = [];
+    for (let x = 0; x < this.setting.height; x++) {
+      this.cells.push([]);
+      for (let y = 0; y < this.setting.width; y++) {
+        this.cells[x].push(new Cell({ x, y }));
+      }
+    }
   }
 
   placeMine({ x, y }: Position) {
@@ -61,6 +63,16 @@ class GameService {
       });
   }
 
+  // Action
+
+  click({ x, y }: Position) {
+    const cell = this.cells[x][y];
+    cell.state = State.Uncover;
+  }
+
+  // Logic
+
+  //
   start(s: GameSetting) {
     this.setting = s;
     this.createCells();

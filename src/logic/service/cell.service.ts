@@ -5,8 +5,9 @@ class CellService {
       case State.Flag:
         return "🚩";
       case State.Cover:
-        return "";
+        return "\xa0";
       case State.Uncover:
+        if (cell.isMine) return "💣";
         return (cell.nMine - cell.nFlag).toString();
     }
   }

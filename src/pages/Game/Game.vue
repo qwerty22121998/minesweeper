@@ -24,6 +24,7 @@
               class="mono rounded-none text-center"
               :type="cellService.GetButtonType(cell)"
               :disabled="game.gameOver"
+              @click="game.click(cell.pos)"
               plain
             >
               <span :class="[cellService.GetTextColor(cell), 'm-0 cell']">{{
